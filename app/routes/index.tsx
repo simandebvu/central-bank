@@ -1,5 +1,5 @@
 import { BsFillArrowUpRightCircleFill } from 'react-icons/bs';
-
+import { Link } from '@remix-run/react';
 export default function Index() {
 
   const pageSections = [
@@ -40,7 +40,9 @@ export default function Index() {
             <div className="mt-10" >
               <div className="card bg-green-500 md:h-32 md:w-72 rounded-none">
                 <div className="card-body text-white font-bold md:text-2xl m-auto select-none cursor-pointer">
+                  <Link to="/vision">
                   Our Vision and Mission Statement
+                  </Link>
                 </div>
                 <div className='text-white absolute top-0 right-0 p-2 font-bold text-xl'>
                   <BsFillArrowUpRightCircleFill />
