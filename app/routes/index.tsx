@@ -4,8 +4,8 @@ export default function Index() {
 
   const pageSections = [
     {
-      title: 'About Us',
-      link: '/'
+      title: 'Dashboard',
+      link: '/dashboard',
     },
     {
       title: 'Visa Cards',
@@ -66,6 +66,7 @@ export default function Index() {
 
 const SectionCard = ({ title, link }: any) => {
   return (
+    <Link to={link}>
     <div className="card glass my-4 rounded-none cursor-pointer select-none h-32 py-10">
       <div className="card-body text-white font-bold lg:text-xl text-center align-middle p-0">
         {title}
@@ -74,6 +75,7 @@ const SectionCard = ({ title, link }: any) => {
         <BsFillArrowUpRightCircleFill />
       </div>
     </div>
+    </Link>
   )
 
 }
