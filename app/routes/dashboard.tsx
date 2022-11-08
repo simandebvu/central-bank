@@ -1,111 +1,32 @@
-import { Tab } from '@headlessui/react'
 import { useState } from 'react'
-
-const stats = [
-    {
-        title: 'CPI Index',
-        value: '1.2',
-        month: 'October 2022',
-    },
-    {
-        title: 'MOM Inflation',
-        value: '1.2',
-        month: 'October 2022',
-    },
-    {
-        title: 'Y-O-Y Inflation',
-        value: '1.2',
-        month: 'October 2022',
-    }
-]
-
-
-
-function classNames(...classes: any) {
-    return classes.filter(Boolean).join(' ')
-}
-
-const StatsCard = ({ title, value, month }: any) => {
-    return (<div className="px-4 flex">
-        <div className="card bg-primary text-primary-content">
-            <div className="card-body">
-                <h2 className="card-title">{title}</h2>
-                <p>{value}</p>
-                <p>{month}</p>
-            </div>
-        </div>
-
-    </div>)
-}
+import {
+    Avatar,
+    Button,
+    Card,
+    Dropdown,
+    Modal,
+    Steps,
+    Tabs,
+    Theme,
+    Toggle
+} from "react-daisyui";
 
 
 export const Dashboard: React.FC = () => {
-    let [categories] = useState({
-        'Gold Coin Price': [
-            {
-                id: 1,
-                title: 'Does drinking coffee make you smarter?',
-                date: '5h ago',
-                commentCount: 5,
-                shareCount: 2,
-            },
-            {
-                id: 2,
-                title: "So you've bought coffee... now what?",
-                date: '2h ago',
-                commentCount: 3,
-                shareCount: 2,
-            },
-        ],
-        'Exchange Rates': [
-            {
-                id: 1,
-                title: 'Is tech making coffee better or worse?',
-                date: 'Jan 7',
-                commentCount: 29,
-                shareCount: 16,
-            },
-            {
-                id: 2,
-                title: 'The most innovative things happening in coffee',
-                date: 'Mar 19',
-                commentCount: 24,
-                shareCount: 12,
-            },
-        ],
-        'Inflation Rates': [
-            {
-                id: 1,
-                title: 'Ask Me Anything: 10 answers to your questions about coffee',
-                date: '2d ago',
-                commentCount: 9,
-                shareCount: 5,
-            },
-            {
-                id: 2,
-                title: "The worst advice we've ever heard about coffee",
-                date: '4d ago',
-                commentCount: 1,
-                shareCount: 2,
-            },
-        ],
-        'Auction Results': [
-            {
-                id: 1,
-                title: 'Ask Me Anything: 10 answers to your questions about coffee',
-                date: '2d ago',
-                commentCount: 9,
-                shareCount: 5,
-            },
-            {
-                id: 2,
-                title: "The worst advice we've ever heard about coffee",
-                date: '4d ago',
-                commentCount: 1,
-                shareCount: 2,
-            },
-        ],
-    })
+    const [tabIndex, setTabIndex] = useState(1);
+    const [tabs] = useState([
+        {
+            key: '1',
+            title: 'Overview',
+            content: 'Overview content'
+        }
+    ])
+
+    const tester = () => {
+        console.log('Chanegd')
+        setTabIndex(1)
+    }
+
     return (
         <div className='flex flex-col justify-between h-full'>
             <div className="overflow-hidden bg-white shadow sm:rounded-lg">
@@ -131,73 +52,32 @@ export const Dashboard: React.FC = () => {
                 </div>
             </div>
 
-            <div className="mt-20">
-                <div className="w-full px-2 py-16 sm:px-0">
-                    <Tab.Group onChange={(index) => {
-        console.log('Changed selected tab to:', index)
-      }}>
-                        <Tab.List className="flex space-x-1 rounded-xl bg-blue-900/20 p-1">
-                            {Object.keys(categories).map((category) => (
-                                <Tab
-                                    key={category}
-                                    className={({ selected }) =>
-                                        classNames(
-                                            'w-full rounded-lg py-2.5 text-sm font-medium leading-5 text-blue-700',
-                                            'ring-white ring-opacity-60 ring-offset-2 ring-offset-blue-400 focus:outline-none focus:ring-2',
-                                            selected
-                                                ? 'bg-white shadow'
-                                                : 'text-blue-100 hover:bg-white/[0.12] hover:text-white'
-                                        )
-                                    }
-                                >
-                                    {category}
-                                </Tab>
-                            ))}
-                        </Tab.List>
-                        <Tab.Panels className="mt-2">
-                            {Object.values(categories).map((posts, idx) => (
-                                <Tab.Panel
-                                    key={idx}
-                                    className={classNames(
-                                        'rounded-xl bg-white p-3',
-                                        'ring-white ring-opacity-60 ring-offset-2 ring-offset-blue-400 focus:outline-none focus:ring-2'
-                                    )}
-                                >
-                                    <ul>
-                                        {posts.map((post) => (
-                                            <li
-                                                key={post.id}
-                                                className="relative rounded-md p-3 hover:bg-gray-100"
-                                            >
-                                                <h3 className="text-sm font-medium leading-5">
-                                                    {post.title}
-                                                </h3>
-
-                                                <ul className="mt-1 flex space-x-1 text-xs font-normal leading-4 text-gray-500">
-                                                    <li>{post.date}</li>
-                                                    <li>&middot;</li>
-                                                    <li>{post.commentCount} comments</li>
-                                                    <li>&middot;</li>
-                                                    <li>{post.shareCount} shares</li>
-                                                </ul>
-
-                                                <a
-                                                    href="#"
-                                                    className={classNames(
-                                                        'absolute inset-0 rounded-md',
-                                                        'ring-blue-400 focus:z-10 focus:outline-none focus:ring-2'
-                                                    )}
-                                                />
-                                            </li>
-                                        ))}
-                                    </ul>
-                                </Tab.Panel>
-                            ))}
-                        </Tab.Panels>
-                    </Tab.Group>
-                </div>
-            </div>
-
+            <Tabs
+             value={tabIndex}
+             onChange={(e) => setTabIndex(e)}
+             variant="lifted" 
+             className="m-4" 
+             boxed >
+                <Tabs.Tab
+                    value={0}
+                    className="active cursor-pointer"
+                >
+                    Tab 01
+                </Tabs.Tab>
+                <Tabs.Tab
+                    value={1}
+                    activeValue={tabIndex}
+                    className="cursor-pointer"
+                >
+                    Tab 02
+                </Tabs.Tab>
+                <Tabs.Tab
+                    value={2}
+                    className="cursor-pointer"
+                >
+                    Tab 03
+                </Tabs.Tab>
+            </Tabs>
 
         </div>
     )
